@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4610a915336e6264592ed444cd459438
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - originAxis: {instanceID: 0}
+  - userIndicatorHoloLensPrefab: {fileID: 3665828602539518510, guid: e588054d7eac74e4395996ed3eebb5f5, type: 3}
+  - userIndicatorMobilePrefab: {fileID: 3665828602539518510, guid: 17d6ea2ae0a146d4a9872ef2133b0eed, type: 3}
+  - userIndicatorUnknownPrefab: {fileID: 3665828602539518510, guid: 3d512547a1f73a2419468b653874b517, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

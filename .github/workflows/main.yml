@@ -1,0 +1,49 @@
+name: Unity-CI-Actions
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build Unity Project (${{ matrix.targetPlatform }}) ✨
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        unityVersion:
+          - 2020.3.31f1
+        targetPlatform:
+          - StandaloneWindows64 # Build a Windows 64-bit standalone.
+          #- WebGL # WebGL.
+          #- iOS # Build an iOS player.
+          #- StandaloneOSX # Build a macOS standalone (Intel 64-bit).
+          #- StandaloneLinux64 # Build a Linux 64-bit standalone.
+          #- Android # Build an Android player.
+    steps:
+      - name: Checkout code
+        uses: nschloe/action-cached-lfs-checkout@v1
+
+      # Test
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: ${{ matrix.unityVersion }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: ${{ matrix.unityVersion }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+          # Temporary workaround - should be addressed individually
+          allowDirtyBuild: true
+
+      # Output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: build
